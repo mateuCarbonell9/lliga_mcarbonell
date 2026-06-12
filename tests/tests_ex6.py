@@ -15,10 +15,9 @@ class TestEx6(unittest.TestCase):
     
     def test_fun_total_goals(self):
         """Comprueba que la suma de goles locales, visitantes y totales es correcta."""
-        # 1. Preparamos un DataFrame de prueba ("dummy data") muy sencillo
         datos_prueba = pd.DataFrame({
-            'FTHG': [2, 1, 0],  # Goles en casa: 2 + 1 + 0 = 3
-            'FTAG': [1, 0, 2]   # Goles fuera: 1 + 0 + 2 = 3
+            'FTHG': [2, 1, 0],  
+            'FTAG': [1, 0, 2]   
         })
         
         # 2. Ejecutamos la función que queremos probar

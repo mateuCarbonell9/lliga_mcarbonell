@@ -16,7 +16,7 @@ def load_and_eda(file_path: str) -> pd.DataFrame:
     # Carga del dataset usando la ruta relativa
     df = pd.read_csv(file_path)
     
-    # Eliminamos las columnas solicitadas
+    # Elimino las columnas que se pide
     columns_to_drop = ["HTHG", "HTAG", "HTR"]
     df = df.drop(columns=columns_to_drop, errors='ignore')
     
@@ -28,7 +28,7 @@ def plot_home_away_goals(data: pd.DataFrame) -> None:
     
     DataFrame con los datos de los partidos.
     """
-    # Creamos una figura con dos subplots uno al lado del otro
+    # Creo una figura con dos subplots uno al lado del otro
     fig, axes = plt.subplots(1, 2, figsize=(10, 5))
     
     # Gráfica para goles en casa (FTHG)
@@ -46,4 +46,4 @@ def plot_home_away_goals(data: pd.DataFrame) -> None:
     os.makedirs("src/img", exist_ok=True)
     filename = f"src/img/grafica_ex1_{config.nom_alumne}_{config.date_time}.png"
     plt.savefig(filename)
-    plt.close()  # Cerramos la figura para liberar memoria
+    plt.close()  

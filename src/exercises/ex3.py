@@ -11,7 +11,7 @@ def goals_distribution(data: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     home_counts = data['FTHG'].value_counts().sort_index()
     away_counts = data['FTAG'].value_counts().sort_index()
     
-    # Convertimos a DataFrames con el nombre de columna que pide el contexto
+    # Convierto a DataFrames con el nombre de columna que pide el contexto
     distr_goals_home = pd.DataFrame(home_counts)
     distr_goals_home.columns = ['Partidos']
     distr_goals_home.index.name = 'Goles'
@@ -44,7 +44,7 @@ def plot_goals_ditribution(distr_goals_home: pd.DataFrame, distr_goals_away: pd.
     
     plt.tight_layout()
     
-    # Guardado de la imagen cumpliendo las restricciones
+    # Guardado de la imagen
     os.makedirs("src/img", exist_ok=True)
     filename = f"src/img/grafica_ex3_{config.nom_alumne}_{config.date_time}.png"
     plt.savefig(filename)

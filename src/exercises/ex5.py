@@ -17,13 +17,13 @@ def fun_total_points(data: pd.DataFrame) -> tuple[pd.Series, pd.DataFrame]:
     Calcula los puntos totales acumulados desde 1995 por cada equipo.
     Devuelve la información redundante solicitada: (Series, DataFrame).
     """
-    # Sumamos los puntos conseguidos en casa por cada equipo
+    # Se suman los puntos conseguidos en casa por cada equipo
     home_points = data.groupby('HomeTeam')['points_home'].sum()
     
-    # Sumamos los puntos conseguidos fuera
+    # Sumo los puntos conseguidos fuera
     away_points = data.groupby('AwayTeam')['points_away'].sum()
     
-    # Sumamos ambos totales
+    # Sumo ambos totales
     total_series = home_points.add(away_points, fill_value=0).astype(int)
     total_series = total_series.sort_values(ascending=False)
     total_series.name = 'Points'

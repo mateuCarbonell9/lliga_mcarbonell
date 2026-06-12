@@ -9,22 +9,22 @@ def graf(data: pd.DataFrame, selected_teams: list[str]) -> None:
     Genera un grafo de conexiones entre los 5 mejores equipos históricos.
     Muestra una única línea por enfrentamiento con el total de partidos jugados.
     """
-    # 1. Filtramos el dataset para quedarnos solo con partidos entre estos 5 equipos
+    # 1. Filtro el dataset para quedarnos solo con partidos entre estos 5 equipos
     filtro = (data['HomeTeam'].isin(selected_teams)) & (data['AwayTeam'].isin(selected_teams))
     df_filtered = data[filtro]
 
-    # 2. Creamos un grafo no dirigido
+    # 2. Creo un grafo no dirigido
     G = nx.Graph()
     G.add_nodes_from(selected_teams)
 
-    # 3. Truco para agrupar idas y vueltas: 
-    # Ordenamos los dos equipos alfabéticamente para que A vs B sea igual a B vs A
+    
+    # Ordeno los dos equipos alfabéticamente 
     pares = df_filtered.apply(lambda row: tuple(sorted([row['HomeTeam'], row['AwayTeam']])), axis=1)
     
-    # Contamos cuántas veces se repite cada enfrentamiento
+    # Cuento cuántas veces se repite cada enfrentamiento
     conteos = pares.value_counts().to_dict()
 
-    # 4. Añadimos las líneas (aristas) con su peso (número de partidos)
+    # 4. Añado las líneas (aristas) con su peso (número de partidos)
     for (equipo1, equipo2), partidos in conteos.items():
         G.add_edge(equipo1, equipo2, weight=partidos)
 

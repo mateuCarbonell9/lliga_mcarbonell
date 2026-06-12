@@ -17,7 +17,7 @@ def fun_total_goals_by_team(data: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFr
     """
     Calcula los goles marcados por cada equipo como local, visitante y en total.
     """
-    # Agrupamos y sumamos
+    # Agrupo y sumamos
     home = data.groupby('HomeTeam')['FTHG'].sum()
     away = data.groupby('AwayTeam')['FTAG'].sum()
     total = home.add(away, fill_value=0).astype(int)
@@ -37,12 +37,12 @@ def fun_summary_1996_2025(total_points: pd.DataFrame,
     """
     Crea un DataFrame resumen uniendo la información de puntos y goles por equipo.
     """
-    # Unimos secuencialmente usando el nombre del equipo como clave ('Team')
+    # Se unen secuencialmente usando el nombre del equipo como clave ('Team')
     summary = total_points.merge(home_goals, on='Team', how='outer')
     summary = summary.merge(away_goals, on='Team', how='outer')
     summary = summary.merge(total_goals, on='Team', how='outer')
     
-    # Ordenamos por los puntos totales de forma descendente para tener la clasificación real
+    # Ordeno por los puntos totales de forma descendente para tener la clasificación real
     summary = summary.sort_values(by='Points', ascending=False).reset_index(drop=True)
     
     return summary
@@ -51,10 +51,10 @@ def podium(summary_1996_2025: pd.DataFrame) -> None:
     """
     Genera un diagrama de barras para los 3 mejores equipos.
     """
-    # Extraemos los 3 primeros equipos (asumiendo que el DataFrame ya viene ordenado por puntos)
+    # Saco los 3 primeros equipos (asumiendo que el DataFrame ya viene ordenado por puntos)
     top3 = summary_1996_2025.head(3)
     
-    # Reordenamos manualmente para el efecto pódium: [Segundo, Primero, Tercero]
+    # Reordeno manualmente para el efecto pódium: [Segundo, Primero, Tercero]
     equipos = [top3.iloc[1]['Team'], top3.iloc[0]['Team'], top3.iloc[2]['Team']]
     puntos = [top3.iloc[1]['Points'], top3.iloc[0]['Points'], top3.iloc[2]['Points']]
     
@@ -63,23 +63,23 @@ def podium(summary_1996_2025: pd.DataFrame) -> None:
     
     plt.figure(figsize=(8, 6))
     
-    # Dibujamos las barras
+    # Dibujo las barras
     barras = plt.bar(range(3), puntos, color=colores, width=0.6)
     
-    # Quitamos las etiquetas de los ejes tal y como pide el enunciado
+    # Quito las etiquetas de los ejes 
     plt.xticks([])
     plt.yticks([])
-    # Ocultamos los bordes del gráfico para que quede más limpio
+    # Oculto los bordes del gráfico para que quede más limpio
     plt.box(False)
     
-    # Añadimos el nombre del equipo justo encima de cada barra
+    # Añado el nombre del equipo justo encima de cada barra
     for i, barra in enumerate(barras):
         altura = barra.get_height()
-        # Colocamos el texto un poquito por encima de la barra
+        # Coloco el texto un poquito por encima de la barra
         plt.text(barra.get_x() + barra.get_width() / 2, altura + 20, 
                  equipos[i], ha='center', va='bottom', fontsize=12, fontweight='bold')
         
-        # Opcional: poner también los puntos dentro de la barra
+        # Opcional, poner también los puntos dentro de la barra
         plt.text(barra.get_x() + barra.get_width() / 2, altura / 2, 
                  f"{puntos[i]} pts", ha='center', va='center', fontsize=10)
 

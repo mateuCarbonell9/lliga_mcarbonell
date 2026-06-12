@@ -7,7 +7,7 @@ def FTR(data: pd.DataFrame) -> pd.DataFrame:
     """
     Calcula el número de partidos ganados por locales (H), visitantes (A) o partidos empatados (D).
     """
-    # Contamos la frecuencia de cada valor en la columna 'FTR' (Full Time Result)
+    # Se cuenta la frecuencia de cada valor en la columna 'FTR' (Full Time Result)
     counts = data['FTR'].value_counts()
     
     # Lo convertimos a DataFrame y renombramos columnas para mayor claridad
