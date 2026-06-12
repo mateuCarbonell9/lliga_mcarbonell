@@ -1,0 +1,8 @@
+[MESSAGES CONTROL]
+disable=
+    invalid-name,
+    line-too-long,
+    redefined-outer-name,
+    too-many-locals,
+    import-error,
+    missing-module-docstring
